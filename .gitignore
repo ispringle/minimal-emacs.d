@@ -1,0 +1,6 @@
+# Elpaca package manager directory
+elpaca/
+
+# Emacs state and variable files
+var/
+local/
