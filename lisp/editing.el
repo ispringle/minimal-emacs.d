@@ -8,6 +8,8 @@
 ;; Symbol highlighting
 (require 'hi-lock)
 
+;; Stolen from:
+;; https://www.jamescherti.com/emacs-symbol-highlighting-built-in-functions/
 (defun simple-toggle-highlight-symbol-at-point ()
   "Toggle highlighting for the symbol at point."
   (interactive)
@@ -19,12 +21,16 @@
       (hi-lock-face-symbol-at-point))))
 
 (general-define-key
- "C-c h" 'simple-toggle-highlight-symbol-at-point)
+ "s-s" 'simple-toggle-highlight-symbol-at-point)
+
+;; Display fill column indicator
+(setq-default fill-column 80)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 (use-package undo-fu
   :ensure t
   :commands (undo-fu-only-undo undo-fu-only-redo
-             undo-fu-only-redo-all undo-fu-disable-checkpoint)
+                               undo-fu-only-redo-all undo-fu-disable-checkpoint)
   :general
   ("C-z" 'undo-fu-only-undo
    "C-S-z" 'undo-fu-only-redo))
@@ -41,7 +47,7 @@
          ("README\\.md\\'" . gfm-mode))
   :general
   (:keymaps 'markdown-mode-map
-   "C-c C-e" 'markdown-do))
+            "C-c C-e" 'markdown-do))
 
 (use-package treesit-auto
   :ensure t
@@ -99,7 +105,7 @@
 (use-package helpful
   :ensure t
   :commands (helpful-callable helpful-variable helpful-key
-             helpful-command helpful-at-point helpful-function)
+                              helpful-command helpful-at-point helpful-function)
   :general
   ([remap describe-command] 'helpful-command
    [remap describe-function] 'helpful-callable

@@ -15,15 +15,21 @@
                             (call-process "make" nil t t "autoloads"))
                :files (:defaults "etc"))
   :mode ("\\.org\\'" . org-mode)
+  :defer t
   :custom
   (org-startup-folded t)
-  (org-hide-emphasis-markers t))
-
-;; Load all org config files from lisp/org/ directory
-(let* ((org-config-dir (expand-file-name "org" (expand-file-name "lisp" minimal-emacs-user-directory)))
-       (org-files (when (file-directory-p org-config-dir)
-                    (directory-files org-config-dir t "^[^#].*\\.el$"))))
-  (when org-files
-    (mapc #'load org-files)))
+  (org-hide-emphasis-markers t)
+  (org-log-done 'time)
+  :config
+  (require 'org-id)
+  (require 'org-attach-git)
+  ;; Load all org config files from lisp/org/ directory
+  (let* ((org-config-dir (expand-file-name
+                          "org" (expand-file-name
+                                 "lisp" minimal-emacs-user-directory)))
+         (org-files (when (file-directory-p org-config-dir)
+                      (directory-files org-config-dir t "^[^#].*\\.el$"))))
+    (when org-files
+      (mapc #'load org-files))))
 
 ;;; org.el ends here

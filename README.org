@@ -1,0 +1,20 @@
+*  minimal-emacs.d
+My emacs config based on [[https://github.com/jamescherti/minimal-emacs.d][minimal-emacs.d]]
+
+** Setup
+#+BEGIN_SRC sh
+  cd ~/.config
+  git clone git@github.com:ispringle/minimal-emacs.d
+  cd ./minimal-emacs.d
+  sh setup.sh
+#+END_SRC
+
+The above should be all it takes to get stuff started. It will clone this repo,
+than run the setup script which in turn clones the minimal-emacs.d repo to
+~$HOME/.emacs.d/~ directory, and then will softlink the ~pre-early-init.el~ file
+from /this/ repo into the ~emacs.d~ directory. From there, just start emacs and let
+the packages install.
+
+At least on MacOS, you will probably also need to run the ~gen-env-file.el~ script
+located in the ~scripts~ directory, this will ensure that you env vars and in
+particular your ~PATH~ is properly loaded into emacs.
