@@ -4,7 +4,11 @@
 
 ;;; Code:
 
-(let* ((lisp-dir (expand-file-name "lisp" minimal-emacs-user-directory))
+(defvar minimal-emacs-lisp-directory
+  (expand-file-name "lisp" minimal-emacs-user-directory)
+  "Path to the lisp/ directory containing configuration modules.")
+
+(let* ((lisp-dir minimal-emacs-lisp-directory)
        ;; Files that need to be loaded in a specific order
        (ordered-files '("compile.el" "general.el" "which-key.el"))
        ;; Load ordered files first

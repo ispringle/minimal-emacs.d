@@ -4,3 +4,5 @@ elpaca/
 # Emacs state and variable files
 var/
 local/
+
+*.elc
