@@ -4,10 +4,6 @@
 
 ;;; Code:
 
-;; Ensure transient is up to date (required by magit and claude-code)
-(use-package transient
-  :ensure t)
-
 ;; Magit - Git interface for Emacs
 (use-package magit
   :ensure t
@@ -29,37 +25,38 @@
   (global-diff-hl-mode 1))
 
 (use-package conventional-commit
-  :load-path "lib"
-  :defer t
-  :config
-  (defun isp/custom-ux-scopes ()
-    "Generate scope list for the custom-ux repository."
-    (let ((root (expand-file-name
-                 "~/git/hub/Banno/custom-ux/packages/"))
-          (scopes '()))
-      (when (file-directory-p root)
-        (let ((custom-apps-dir (expand-file-name "custom-apps/" root)))
-          (when (file-directory-p custom-apps-dir)
-            (dolist (dir (directory-files custom-apps-dir nil "^[^.]"))
-              (when (file-directory-p
-                     (expand-file-name dir custom-apps-dir))
-                (push (concat dir "-customapp") scopes)))))
-        (let ((power-ons-dir (expand-file-name "power-ons/" root)))
-          (when (file-directory-p power-ons-dir)
-            (dolist (dir (directory-files power-ons-dir nil "^[^.]"))
-              (when (file-directory-p
-                     (expand-file-name dir power-ons-dir))
-                (push (concat dir "-poweron") scopes)))))
-        (let ((templates-dir (expand-file-name "templates/" root)))
-          (when (file-directory-p templates-dir)
-            (dolist (dir (directory-files templates-dir nil "^[^.]"))
-              (when (file-directory-p
-                     (expand-file-name dir templates-dir))
-                (push (concat dir "-template") scopes)))))
-        (let ((poweron-lib-dir (expand-file-name "poweron-lib/" root)))
-          (when (file-directory-p poweron-lib-dir)
-            (push "poweron-lib" scopes))))
-      (nreverse scopes))))
+  :load-path (lambda ()
+               (expand-file-name "lib" minimal-emacs-lisp-directory))
+  :defer t)
+
+(defun isp/custom-ux-scopes ()
+  "Generate scope list for the custom-ux repository."
+  (let ((root (expand-file-name
+               "~/git/hub/Banno/custom-ux/packages/"))
+        (scopes '()))
+    (when (file-directory-p root)
+      (let ((custom-apps-dir (expand-file-name "custom-apps/" root)))
+        (when (file-directory-p custom-apps-dir)
+          (dolist (dir (directory-files custom-apps-dir nil "^[^.]"))
+            (when (file-directory-p
+                   (expand-file-name dir custom-apps-dir))
+              (push (concat dir "-customapp") scopes)))))
+      (let ((power-ons-dir (expand-file-name "power-ons/" root)))
+        (when (file-directory-p power-ons-dir)
+          (dolist (dir (directory-files power-ons-dir nil "^[^.]"))
+            (when (file-directory-p
+                   (expand-file-name dir power-ons-dir))
+              (push (concat dir "-poweron") scopes)))))
+      (let ((templates-dir (expand-file-name "templates/" root)))
+        (when (file-directory-p templates-dir)
+          (dolist (dir (directory-files templates-dir nil "^[^.]"))
+            (when (file-directory-p
+                   (expand-file-name dir templates-dir))
+              (push (concat dir "-template") scopes)))))
+      (let ((poweron-lib-dir (expand-file-name "poweron-lib/" root)))
+        (when (file-directory-p poweron-lib-dir)
+          (push "poweron-lib" scopes))))
+    (nreverse scopes)))
 
 (defun isp/conventional-commit-setup-with-scopes ()
   "Set up conventional commit with project-specific scopes."

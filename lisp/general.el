@@ -7,10 +7,9 @@
 (use-package general
   :ensure t
   :demand t
-  :general
-  ("C-i" 'completion-at-point)
   :config
   (general-override-mode 1)
-  (setq general-auto-unbind-keys t))
+  (setq general-auto-unbind-keys t)
+  (general-define-key "C-i" #'completion-at-point))
 
 ;;; general.el ends here

@@ -29,15 +29,12 @@
 
 (use-package undo-fu
   :ensure t
-  :commands (undo-fu-only-undo undo-fu-only-redo
-                               undo-fu-only-redo-all undo-fu-disable-checkpoint)
   :general
-  ("C-z" 'undo-fu-only-undo
-   "C-S-z" 'undo-fu-only-redo))
+  ("C-/" #'undo-fu-only-undo)
+  ("C-S-/" #'undo-fu-only-redo))
 
 (use-package undo-fu-session
   :ensure t
-  :commands undo-fu-session-global-mode
   :hook (elpaca-after-init . undo-fu-session-global-mode))
 
 (use-package markdown-mode
@@ -97,9 +94,11 @@
   (yas-snippet-revival nil)
   (yas-wrap-around-region nil)
   :init
-  (setq yas-verbosity 0)
-  (add-to-list 'yas-snippet-dirs
-               (expand-file-name "lisp/snippets" minimal-emacs-user-directory)))
+  (setq yas-verbosity 0
+        yas-snippet-dirs (list
+                          (expand-file-name
+                           "lisp/snippets" minimal-emacs-user-directory)
+                          'yas-installed-snippets-dir)))
 
 (use-package yasnippet-snippets
   :ensure t

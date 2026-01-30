@@ -9,22 +9,30 @@
   "Path to the lisp/ directory containing configuration modules.")
 
 (let* ((lisp-dir minimal-emacs-lisp-directory)
-       ;; Files that need to be loaded in a specific order
        (ordered-files '("compile.el" "general.el" "which-key.el"))
-       ;; Load ordered files first
+       (ignored-files '("llm.el"))
+       (whitelist-files '())  ; If non-empty, ONLY load these
        (ordered-paths (mapcar (lambda (f) (expand-file-name f lisp-dir))
                               ordered-files))
-       ;; Get all .el files in the directory
+       (ignored-paths (mapcar (lambda (f) (expand-file-name f lisp-dir))
+                              ignored-files))
+       (whitelist-paths (mapcar (lambda (f) (expand-file-name f lisp-dir))
+                                whitelist-files))
        (all-files (directory-files lisp-dir 't "^[^#].*\\.el$"))
-       ;; Filter out the ordered files from the remaining files
-       (remaining-files (seq-filter (lambda (f)
-                                      (not (member f ordered-paths)))
-                                    all-files)))
-  ;; Load ordered files in sequence with elpaca-wait after each
+       (remaining-files (if whitelist-paths
+                            (seq-filter (lambda (f)
+                                          (and (member f whitelist-paths)
+                                               (not (member f ordered-paths))))
+                                        all-files)
+                          (seq-filter (lambda (f)
+                                        (not (or (member f ordered-paths)
+                                                 (member f ignored-paths))))
+                                      all-files))))
   (dolist (file ordered-paths)
-    (load file)
-    (elpaca-wait))
-  ;; Load remaining files
-  (mapc #'load remaining-files))
-
+    (unless (and whitelist-paths
+                 (not (member file whitelist-paths)))
+      (load file)
+      (elpaca-wait)))
+  (dolist (file remaining-files)
+    (load file)))
 ;;; post-init.el ends here
