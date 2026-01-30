@@ -7,6 +7,7 @@
 
 (use-package aggressive-indent
   :ensure t
+  :diminish aggressive-indent-mode
   :commands aggressive-indent-mode
   :hook (emacs-lisp-mode . aggressive-indent-mode))
 
@@ -17,6 +18,7 @@
 
 (use-package paredit
   :ensure t
+  :diminish paredit-mode
   :commands paredit-mode
   :hook (emacs-lisp-mode . paredit-mode)
   :general

@@ -53,7 +53,8 @@ can be a list of strings or a dynamic completion table created by
           (cond
            ;; Completing scope: after "type(" (only if scopes are defined)
            ((and conventional-commit-scope-table
-                 (looking-at (rx (+ alpha) "(" (group (* (not (any ")")))) eos)))
+                 (looking-at
+                  (rx (+ alpha) "(" (group (* (not (any ")")))) eos)))
             (list (match-beginning 1)
                   (match-end 1)
                   conventional-commit-scope-table

@@ -15,7 +15,6 @@
                             (call-process "make" nil t t "autoloads"))
                :files (:defaults "etc"))
   :mode ("\\.org\\'" . org-mode)
-  :defer t
   :custom
   (org-startup-folded t)
   (org-hide-emphasis-markers t)

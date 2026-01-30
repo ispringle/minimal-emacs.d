@@ -1,5 +1,8 @@
 ;;; navigate.el --- Navigation hydra -*- no-byte-compile: t; lexical-binding: t; -*-
 
+;;;###autoload (autoload 'hydra-navigate/body "navigate" nil t)
+;;;###autoload (general-define-key "C-c n" 'hydra-navigate/body)
+
 (defhydra hydra-navigate (:color pink :hint nil)
   "
 ^Char/Line^              ^Word^              ^Sentence^          ^Paragraph^         ^Sexp/List^
@@ -65,8 +68,5 @@ _q_: quit
   ("C-V" scroll-other-window-down)
 
   ("q" nil :exit t))
-
-(general-define-key
- "C-c n" 'hydra-navigate/body)
 
 ;;; navigate.el ends here

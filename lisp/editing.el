@@ -82,12 +82,9 @@
 
 (use-package apheleia
   :ensure t
+  :diminish apheleia-mode
   :commands (apheleia-mode apheleia-global-mode)
   :hook ((prog-mode . apheleia-mode)))
-
-(use-package yasnippet-snippets
-  :ensure t
-  :after yasnippet)
 
 (use-package yasnippet
   :ensure t
@@ -100,7 +97,13 @@
   (yas-snippet-revival nil)
   (yas-wrap-around-region nil)
   :init
-  (setq yas-verbosity 0))
+  (setq yas-verbosity 0)
+  (add-to-list 'yas-snippet-dirs
+               (expand-file-name "lisp/snippets" minimal-emacs-user-directory)))
+
+(use-package yasnippet-snippets
+  :ensure t
+  :after yasnippet)
 
 (use-package helpful
   :ensure t

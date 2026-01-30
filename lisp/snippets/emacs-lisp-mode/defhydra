@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: defhydra
+# key: defhydra
+# --
+;;; `(file-name-nondirectory buffer-file-name)` --- $1 hydra -*- no-byte-compile: t; lexical-binding: t; -*-
+
+;;;###autoload (autoload 'hydra-`(file-name-base buffer-file-name)`/body "`(file-name-base buffer-file-name)`" nil t)
+;;;###autoload (general-define-key "${2:C-c ?}" 'hydra-`(file-name-base buffer-file-name)`/body)
+
+(defhydra hydra-`(file-name-base buffer-file-name)` (:color ${3:pink} :hint nil)
+  "
+$0
+"
+  ("q" nil :exit t))
+
+;;; `(file-name-nondirectory buffer-file-name)` ends here

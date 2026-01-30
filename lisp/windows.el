@@ -4,14 +4,22 @@
 
 ;;; Code:
 
+(use-package posframe
+  :ensure t)
+
 (use-package ace-window
   :ensure t
-  :commands ace-window
+  :after posframe
   :custom
-  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))  ; Home row keys
-  (aw-scope 'frame)  ; Only current frame
-  (aw-background t)  ; Dim background when selecting
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
+  (aw-scope 'frame)
+  (aw-background t)
+  :custom-face
+  (aw-leading-char-face ((t (:height 500 :foreground "red"))))
+  :config
+  (posframe-delete-all)
+  (ace-window-posframe-mode 1)
   :general
-  ("C-x o" 'ace-window))
+  ("C-x o" #'ace-window))
 
 ;;; windows.el ends here

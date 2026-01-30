@@ -6,6 +6,7 @@
 
 (use-package autorevert
   :ensure nil
+  :diminish auto-revert-mode
   :commands (auto-revert-mode global-auto-revert-mode)
   :hook (elpaca-after-init . global-auto-revert-mode)
   :custom

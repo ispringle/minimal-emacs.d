@@ -6,8 +6,7 @@
 
 (use-package which-key
   :ensure nil
-  :diminish which-key-mode
-  :commands which-key-mode
+  :diminish
   :hook (elpaca-after-init . which-key-mode)
   :custom
   (which-key-idle-delay 1.5)

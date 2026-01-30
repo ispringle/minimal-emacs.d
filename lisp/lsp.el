@@ -53,6 +53,7 @@
 ;; Flymake configuration for better visual feedback
 (use-package flymake
   :ensure nil
+  :diminish flymake-mode
   :custom
   ;; Show diagnostics in fringe
   (flymake-fringe-indicator-position 'left-fringe)

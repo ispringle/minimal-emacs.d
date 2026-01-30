@@ -6,3 +6,7 @@ var/
 local/
 
 *.elc
+
+.DS_Store/
+.claude/
+*-autoloads.el
