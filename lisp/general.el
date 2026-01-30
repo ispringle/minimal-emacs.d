@@ -7,6 +7,8 @@
 (use-package general
   :ensure t
   :demand t
+  :general
+  ("C-i" 'completion-at-point)
   :config
   (general-override-mode 1)
   (setq general-auto-unbind-keys t))
