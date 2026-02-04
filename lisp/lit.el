@@ -17,16 +17,16 @@
   :config
   (setq polymode-prefix-key (kbd "C-c m"))
 
-  ;; Use non-tree-sitter modes as host (polymode works better with them)
+  ;; Use tree-sitter modes as host
   (define-hostmode poly-lit-typescript-hostmode
-    :mode 'typescript-mode)
+    :mode 'typescript-ts-mode)
 
   (define-hostmode poly-lit-javascript-hostmode
-    :mode 'js-mode)
+    :mode 'js-ts-mode)
 
-  ;; Define HTML template literal as inner mode (use mhtml-mode for better highlighting)
+  ;; Define HTML template literal as inner mode (use html-ts-mode)
   (define-innermode poly-lit-html-template-innermode
-    :mode 'mhtml-mode
+    :mode 'html-ts-mode
     :head-matcher "html\\s-*`"
     :tail-matcher "`"
     :head-mode 'host
@@ -36,7 +36,7 @@
 
   ;; Define CSS template literal as inner mode
   (define-innermode poly-lit-css-template-innermode
-    :mode 'css-mode
+    :mode 'css-ts-mode
     :head-matcher "css\\s-*`"
     :tail-matcher "`"
     :head-mode 'host
@@ -45,7 +45,7 @@
 
   ;; Define JavaScript expressions inside HTML templates (${...})
   (define-innermode poly-lit-js-expression-innermode
-    :mode 'js-mode
+    :mode 'js-ts-mode
     :head-matcher "\\${[ \t\n]*"
     :tail-matcher "[ \t\n]*}"
     :head-mode 'host
@@ -70,7 +70,7 @@
     :lighter " PolyLit"))
 
 ;; Auto-activate for files with Lit imports
-;; DISABLED: Testing eglot without polymode
+;; DISABLED: Not working as desired
 ;; (defun lit-maybe-enable-polymode ()
 ;;   "Enable poly-lit mode if file contains Lit imports."
 ;;   (when (and (buffer-file-name)
