@@ -16,6 +16,9 @@
    "C-c g" 'magit-dispatch
    "C-c f g" 'magit-file-dispatch))
 
+(use-package forge
+  :after magit)
+
 ;; diff-hl - Highlight uncommitted changes in the fringe
 (use-package diff-hl
   :ensure t
