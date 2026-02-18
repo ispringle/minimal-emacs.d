@@ -6,6 +6,7 @@
 
 (use-package goggles
   :ensure t
+  :diminish
   :hook ((prog-mode text-mode) . goggles-mode)
   :custom
   (goggles-pulse t))
