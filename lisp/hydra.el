@@ -14,6 +14,7 @@
       (autoloads-file (expand-file-name
                        "lisp/hydra/hydra-autoloads.el"
                        minimal-emacs-user-directory)))
+  (add-to-list 'load-path hydra-dir)
   (when (or (not (file-exists-p autoloads-file))
             (cl-some (lambda (f) (file-newer-than-file-p f autoloads-file))
                      (directory-files hydra-dir t "\\.el$")))
