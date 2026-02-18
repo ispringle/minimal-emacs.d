@@ -4,8 +4,10 @@
 ;;; Code:
 
 (use-package crux
+  :ensure t
   :general
-  ("C-k" #'crux-kill-whole-line)
+  ("C-k" #'crux-smart-kill-line)
+  ("C-S-k" #'crux-kill-whole-line)
   ("C-a" #'crux-move-beginning-of-line)
   ("C-o" #'crux-smart-open-line)
   ("C-S-o" #'crux-smart-open-line-above)
