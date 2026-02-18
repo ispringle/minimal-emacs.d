@@ -53,9 +53,21 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(use-package combobulate
+  :ensure (:host github :repo "mickeynp/combobulate")
+  :hook ((python-ts-mode . combobulate-mode)
+         (js-ts-mode . combobulate-mode)
+         (typescript-ts-mode . combobulate-mode)
+         (tsx-ts-mode . combobulate-mode)
+         (css-ts-mode . combobulate-mode)
+         (yaml-ts-mode . combobulate-mode)
+         (json-ts-mode . combobulate-mode))
+  :init
+  (setq combobulate-key-prefix "C-c o"))
+
 (use-package buffer-terminator
   :ensure t
-  :diminish buffer-terminator-mode
+  :diminish
   :custom
   (buffer-terminator-verbose nil)
   (buffer-terminator-inactivity-timeout (* 30 60))
@@ -65,7 +77,7 @@
 
 (use-package inhibit-mouse
   :ensure t
-  :diminish inhibit-mouse-mode
+  :diminish
   :config
   (if (daemonp)
       (add-hook 'server-after-make-frame-hook #'inhibit-mouse-mode)
@@ -79,13 +91,13 @@
 
 (use-package apheleia
   :ensure t
-  :diminish apheleia-mode
+  :diminish
   :commands (apheleia-mode apheleia-global-mode)
   :hook ((prog-mode . apheleia-mode)))
 
 (use-package yasnippet
   :ensure t
-  :diminish yas-minor-mode
+  :diminish
   :commands (yas-minor-mode yas-global-mode)
   :hook (elpaca-after-init . yas-global-mode)
   :custom
