@@ -54,7 +54,7 @@
 (use-package embark
   :ensure t
   :commands (embark-act embark-dwim embark-export embark-collect
-             embark-bindings embark-prefix-help-command)
+                        embark-bindings embark-prefix-help-command)
   :general
   ("C-." 'embark-act
    "C-;" 'embark-dwim
@@ -81,7 +81,8 @@
    "C-c i" 'consult-info
    [remap Info-search] 'consult-info
    "C-x M-:" 'consult-complex-command
-   "C-x b" 'consult-buffer
+   "C-x b" 'isp/consult-buffer-dwim
+   "C-x B" 'consult-buffer
    "C-x 4 b" 'consult-buffer-other-window
    "C-x 5 b" 'consult-buffer-other-frame
    "C-x t b" 'consult-buffer-other-tab
@@ -111,13 +112,13 @@
    "M-s u" 'consult-focus-lines
    "M-s e" 'consult-isearch-history)
   (:keymaps 'isearch-mode-map
-   "M-e" 'consult-isearch-history
-   "M-s e" 'consult-isearch-history
-   "M-s l" 'consult-line
-   "M-s L" 'consult-line-multi)
+            "M-e" 'consult-isearch-history
+            "M-s e" 'consult-isearch-history
+            "M-s l" 'consult-line
+            "M-s L" 'consult-line-multi)
   (:keymaps 'minibuffer-local-map
-   "M-s" 'consult-history
-   "M-r" 'consult-history)
+            "M-s" 'consult-history
+            "M-r" 'consult-history)
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :init
   (setq register-preview-delay 0.5
@@ -133,6 +134,14 @@
    consult-source-bookmark consult-source-file-register
    consult-source-recent-file consult-source-project-recent-file
    :preview-key '(:debounce 0.4 any))
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+
+  (defun isp/consult-buffer-dwim ()
+    "Switch buffer with project awareness.
+If in a project, use `consult-project-buffer'. Otherwise use `consult-buffer'."
+    (interactive)
+    (if (project-current nil)
+        (consult-project-buffer)
+      (consult-buffer))))
 
 ;;; completion.el ends here
