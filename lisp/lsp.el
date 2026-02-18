@@ -15,45 +15,36 @@
   (setq eglot-stay-out-of nil)
 
   ;; Enable flymake for visual indicators
-  (add-hook 'eglot-managed-mode-hook #'flymake-mode)
+  (add-hook 'eglot-managed-mode-hook #'flymake-mode))
 
-  ;; Configure TypeScript server to use Lit plugins
-  (add-to-list 'eglot-server-programs
-               '((typescript-mode typescript-ts-mode)
-                 . ("typescript-language-server" "--stdio"
-                    :initializationOptions
-                    (:plugins [(:name "typescript-lit-html-plugin")
-                               (:name "ts-lit-plugin"
-                                :tags ["html" "css"])]))))
-
-  ;; Also configure for TSX if needed
-  (add-to-list 'eglot-server-programs
-               '((tsx-ts-mode)
-                 . ("typescript-language-server" "--stdio"
-                    :initializationOptions
-                    (:plugins [(:name "typescript-lit-html-plugin")
-                               (:name "ts-lit-plugin"
-                                :tags ["html" "css"])])))))
+(use-package eldoc
+  :ensure nil
+  :diminish
+  :config
+  ;; Gather full documentation from all sources
+  (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+  ;; Allow multi-line in echo area initially (eldoc-box will intercept)
+  (setq eldoc-echo-area-use-multiline-p t))
 
 ;; Better documentation display in a childframe
 (use-package eldoc-box
   :ensure t
   :commands (eldoc-box-hover-mode eldoc-box-hover-at-point-mode eldoc-box-help-at-point)
+  :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode) ;; Add this line
   :custom
-  (eldoc-box-clear-with-C-g t)  ; Clear box with C-g
-  (eldoc-idle-delay 0.5)  ; Wait before showing documentation
+  (eldoc-box-clear-with-C-g t)
+  (eldoc-idle-delay 0.5)
   :general
   (:keymaps 'eglot-mode-map
-   "C-c d" 'eldoc-box-help-at-point)  ; Show docs on demand
+            "C-c d" 'eldoc-box-help-at-point)
   :config
-  ;; Hide box when typing or moving cursor
-  (setq eldoc-box-only-multi-line t)  ; Only show for multi-line docs
-  (setq eldoc-box-cleanup-interval 0.2))  ; Hide quickly when moving
+  (setq eldoc-box-only-multi-line t)
+  (setq eldoc-box-cleanup-interval 0.2))
 
 ;; Flymake configuration for better visual feedback
 (use-package flymake
   :ensure nil
-  :diminish flymake-mode
+  :diminish
   :custom
   ;; Show diagnostics in fringe
   (flymake-fringe-indicator-position 'left-fringe)
