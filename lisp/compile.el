@@ -8,9 +8,7 @@
 (use-package compile-angel
   :demand t
   :ensure t
-  :diminish compile-angel-on-load-mode
-  :custom
-  (compile-angel-verbose t)
+  :diminish (compile-angel-mode compile-angel-on-load-mode)
   :config
   (push "/init.el" compile-angel-excluded-files)
   (push "/early-init.el" compile-angel-excluded-files)
