@@ -30,7 +30,7 @@
     (let ((display-buffer-alist nil))
       (eat)))
   :general
-  (:prefix "C-c o"
+  (:prefix "C-c t"
            "T" #'eat-here
            "t" #'eat-popup)
   :config
