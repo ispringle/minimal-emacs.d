@@ -11,3 +11,4 @@ local/
 .claude/
 *-autoloads.el
 /persp-state
+custom.el
