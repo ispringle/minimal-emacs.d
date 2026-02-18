@@ -1,4 +1,5 @@
 ;;; crux.el ---  hydra -*- no-byte-compile: t; lexical-binding: t; -*-
+
 ;;;###autoload (autoload 'hydra-crux/body "crux" nil t)
 ;;;###autoload (general-define-key "C-c x" 'hydra-crux/body)
 (defhydra hydra-crux (:color blue :hint nil)
