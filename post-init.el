@@ -10,7 +10,7 @@
 
 (let* ((lisp-dir minimal-emacs-lisp-directory)
        (ordered-files '("compile.el" "general.el" "which-key.el"))
-       (ignored-files '("llm.el"))
+       (ignored-files '("llm.el" "perspective.el"))
        (whitelist-files '())  ; If non-empty, ONLY load these
        (ordered-paths (mapcar (lambda (f) (expand-file-name f lisp-dir))
                               ordered-files))
