@@ -11,10 +11,10 @@
                     :height 120)  ; 12pt
 
 ;; Theme configuration
-(defvar default-theme-light 'leuven
+(defvar default-theme-light 'modus-operandi
   "Default light theme.")
 
-(defvar default-theme-dark 'leuven-dark
+(defvar default-theme-dark 'modus-vivendi
   "Default dark theme.")
 
 (defun apply-theme (theme-name)

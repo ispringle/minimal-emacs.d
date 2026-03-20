@@ -11,6 +11,7 @@
   :custom
   (magit-display-buffer-function
    #'magit-display-buffer-same-window-except-diff-v1)
+  (magit-git-executable "/opt/homebrew/bin/git")
   :general
   ("C-x g" 'magit-status
    "C-c g" 'magit-dispatch
